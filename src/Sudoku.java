@@ -1,5 +1,22 @@
+/*
+ * SudokuSolver - Finds a solution for Sudoku games.
+ * Copyright (C) 2025 Christiano Rangel
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -74,7 +91,7 @@ public record Sudoku(List<Integer> numbers) {
         return result;
     }
 
-     List<Integer> getGrid(int gridIndex) {
+    List<Integer> getGrid(int gridIndex) {
         List<Integer> grid = new ArrayList<>(9);
 
         int startRow = (gridIndex / 3) * 3;
@@ -99,7 +116,7 @@ public record Sudoku(List<Integer> numbers) {
         //System.out.println("grid of " + index + " has index " + getGridIndex(index) + " and its elements are: " + getGrid(getGridIndex(index)));
 
         List<Integer> possibilities = new ArrayList<>(9);
-        IntStream.range(1,10).filter(i -> !row.contains(i) && !column.contains(i) && !grid.contains(i)).forEach(possibilities::add);
+        IntStream.range(1, 10).filter(i -> !row.contains(i) && !column.contains(i) && !grid.contains(i)).forEach(possibilities::add);
         return possibilities;
     }
 
@@ -119,13 +136,13 @@ public record Sudoku(List<Integer> numbers) {
                 }
                 int possibilitiesSize = possibilities.size();
 
-                if (!possibilities.isEmpty() && minimalSize > possibilitiesSize) {
+                if (minimalSize > possibilitiesSize) {
                     minimalSize = possibilitiesSize;
                     minimalIndex = i;
                     minimalPossibilities = possibilities;
                 }
                 if (possibilitiesSize == 1) {
-                    System.out.println("Set "+ i + " to " + possibilities.getFirst());
+                    System.out.println("Set " + i + " to " + possibilities.getFirst());
                     numbers.set(i, possibilities.getFirst());
                     changed = true;
                 }
